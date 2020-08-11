@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="date" content="2020-07-26" />
+
+<title>Overview of provTraceR</title>
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Overview of provTraceR</h1>
+<h4 class="date">26 July 2020</h4>
+
+
+
+<div id="provtracer" class="section level2">
+<h2>provTraceR</h2>
+<p>The provTraceR package displays information about files used or created by an R script or a series of R scripts. The package uses provenance collected by <a href="https://CRAN.R-project.org/package=rdtLite">rdtLite</a> and stored in <a href="https://github.com/End-to-end-provenance/ExtendedProvJson/blob/master/JSON-format.md">prov-json format</a>. Output from provTraceR can be used to help manage files and to identify the input files needed to reproduce an analysis.</p>
+</div>
+<div id="usage" class="section level2">
+<h2>Usage</h2>
+<p>This package includes two functions:</p>
+<ol style="list-style-type: decimal">
+<li>To use existing provenance to trace file lineage:</li>
+</ol>
+<pre><code>prov.trace(scripts, prov.dir=NULL, file.details=FALSE, console=TRUE, save=FALSE, save.dir=NULL, check=TRUE)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>To run one or more scripts, collect provenance, and trace file lineage:</li>
+</ol>
+<pre><code>prov.trace.run(scripts, prov.dir=NULL, file.details=FALSE, console=TRUE, save=FALSE, save.dir=NULL, check=TRUE, prov.tool=&quot;rdtLite&quot;, details=FALSE, ...)</code></pre>
+<p>The <i>scripts</i> parameter may contain a single script name, a vector of script names, or a text file (with extension .txt) of script names.</p>
+<p>For <i>prov.trace</i> only: If more than one script is specified, the order of the scripts must match the order of execution as recorded in the provenance; otherwise an error message is displayed. For console sessions, set <i>scripts</i> = “console”.</p>
+<p>For <i>prov.trace.run</i> only: The provenance collection tool specified by prov.tool must be “rdtLite” or “rdt”. If details = TRUE, fine-grained provenance is collected. Other optional parameters (…) are passed to rdtLite or rdt. Scripts are executed in the order listed.</p>
+<p>It is assumed that provenance for each script is stored under a single provenance directory set by the <i>prov.dir</i> option. If not, the provenance directory may be specified with the <i>prov.dir</i> parameter. Timestamped provenance and provenance in scattered locations are not currently supported.</p>
+<p>Files are matched by hash value. INPUTS lists files that are required to run the script or scripts. These include files read by a script and not written by an earlier script or previously written by the same script. OUTPUTS lists files written by the script or scripts. EXCHANGES lists files with the same hash value that were written by one script and read by a later script; if the location changed, both locations are listed.</p>
+<p>If <i>file.details</i> = TRUE, additional details are displayed, including script execution timestamps, file timestamps, file hash values, and saved file names.</p>
+<p>Results of both functions are returned as a string.</p>
+<p>If <i>console</i> = TRUE (the default), results are displayed in the console.</p>
+<p>If <i>save</i> = TRUE, results are saved to the file <i>prov-trace.txt</i>.</p>
+<p>The <i>save.dir</i> parameter determines where the results file is saved. If NULL (the default), the R session temporary directory is used. If a period (.), the current working directory is used. Otherwise the directory specified by <i>save.dir</i> is used.</p>
+<p>If <i>check</i> = TRUE (the default), each file recorded in the provenance is checked against the user’s file system. A dash (-) in the output indicates that the file no longer exists, a plus (+) indicates that the file exists but the hash value has changed, and a colon (:) indicates that the file exists and the hash value is unchanged. If <i>check</i> = FALSE, no comparison is made.</p>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>In this example, three R scripts are used to gap fill, harmonize, and combine data from two meteorological stations to create a single dataset. The script names are contained in the file “update-hf300.txt”.</p>
+<p>In the first case, the <i>prov.trace.run</i> function is used to run the scripts, collect provenance, and display summary file information.</p>
+<pre><code>prov.trace.run(&quot;update-hf300.txt&quot;)</code></pre>
+<p>Console output (below) shows the save message for each script from <i>rdtLite</i> followed by output from <i>prov.trace.run</i>. Scripts are numbered in the order of execution. Each line shows the script number, a symbol indicating whether the file has changed since provenance was collected, and the file path and name.</p>
+<pre><code>[1] &quot;Saving prov.json in C:/Prov/prov_gap-fill-shaler&quot;
+[1] &quot;Saving prov.json in C:/Prov/prov_combine-shaler-fisher&quot;
+[1] &quot;Saving prov.json in C:/Prov/prov_calculate-hf-annual-monthly&quot;
+
+SCRIPTS:
+
+1 : C:/TraceR/gap-fill-shaler.R 
+2 : C:/TraceR/combine-shaler-fisher.R 
+3 : C:/TraceR/calculate-hf-annual-monthly.R 
+
+INPUTS:
+
+1 : C:/TraceR/amherst-ma-1964-2002.csv 
+1 : C:/TraceR/bedford-ma-1964-2002.csv 
+1 : C:/TraceR/hf000-02-daily-e.csv 
+2 : C:/TraceR/hf001-06-daily-m.csv 
+2 : C:/TraceR/hf001-08-hourly-m.csv 
+
+OUTPUTS:
+
+1 : C:/TraceR/hf-shaler-gap-filled.csv 
+2 : C:/TraceR/hf-shaler-fisher-overlap.csv 
+2 : C:/TraceR/hf300-05-daily-m.csv 
+2 : C:/TraceR/hf300-06-daily-e.csv 
+3 : C:/TraceR/hf300-01-annual-m.csv 
+3 : C:/TraceR/hf300-02-annual-e.csv 
+3 : C:/TraceR/hf300-03-monthly-m.csv 
+3 : C:/TraceR/hf300-04-monthly-e.csv 
+
+EXCHANGES:
+
+1 &gt; 2 : C:/TraceR/hf-shaler-gap-filled.csv 
+2 &gt; 3 : C:/TraceR/hf300-05-daily-m.csv</code></pre>
+<p>In the second case, the <i>prov.trace</i> function is used to display detailed file information contained in the provenance without running the scripts.</p>
+<pre><code>prov.trace(&quot;update-hf300.txt&quot;, file.details=TRUE)</code></pre>
+<p>For each file, the console output (below) shows the file timestamp, the file hash value and algorithm, and the path and name of the saved copy of the file on the provenance directory. For scripts the execution time stamp is also shown.</p>
+<pre><code>SCRIPTS:
+
+1 : C:/TraceR/gap-fill-shaler.R 
+        Timestamp: 2019-10-19T09.42.45EDT 
+        Hash:      9ab73da3681ae9cbe85efb912550e432 / md5 
+        Saved:     C:/Prov/prov_gap-fill-shaler/scripts/gap-fill-shaler.R 
+        Executed:  2020-07-08T10.21.30EDT 
+
+2 : C:/TraceR/combine-shaler-fisher.R 
+        Timestamp: 2019-10-19T09.41.59EDT 
+        Hash:      848a20e2696b1fb7c9bdeec27df059f5 / md5 
+        Saved:     C:/Prov/prov_combine-shaler-fisher/scripts/combine-shaler-fisher.R 
+        Executed:  2020-07-08T10.21.35EDT 
+
+3 : C:/TraceR/calculate-hf-annual-monthly.R 
+        Timestamp: 2019-10-19T10.16.12EDT 
+        Hash:      213661ba5f7e4de68d2205c9fe8c0922 / md5 
+        Saved:     C:/Prov/prov_calculate-hf-annual-monthly/scripts/calculate-hf-annual-monthly.R 
+        Executed:  2020-07-08T10.21.41EDT 
+
+
+INPUTS:
+
+1 : C:/TraceR/amherst-ma-1964-2002.csv 
+        Timestamp: 2019-10-16T10.51.53EDT 
+        Hash:      06c82be1ceeec8f41216ee670f485d77 / md5 
+        Saved:     C:/Prov/prov_gap-fill-shaler/data/2-amherst-ma-1964-2002.csv 
+
+1 : C:/TraceR/bedford-ma-1964-2002.csv 
+        Timestamp: 2019-10-17T10.43.55EDT 
+        Hash:      d7f8e08fd84f4b75941325cd82ca7768 / md5 
+        Saved:     C:/Prov/prov_gap-fill-shaler/data/3-bedford-ma-1964-2002.csv 
+
+1 : C:/TraceR/hf000-02-daily-e.csv 
+        Timestamp: 2019-10-16T10.37.42EDT 
+        Hash:      e9f67f7074eb68059385c683d0410c01 / md5 
+        Saved:     C:/Prov/prov_gap-fill-shaler/data/1-hf000-02-daily-e.csv 
+
+2 : C:/TraceR/hf001-06-daily-m.csv 
+        Timestamp: 2020-06-01T09.07.21EDT 
+        Hash:      5e515ea3e7080543fba92b9b9114810f / md5 
+        Saved:     C:/Prov/prov_combine-shaler-fisher/data/2-hf001-06-daily-m.csv 
+
+2 : C:/TraceR/hf001-08-hourly-m.csv 
+        Timestamp: 2019-10-17T11.34.57EDT 
+        Hash:      af36c84e4c0b8f72632eba5661506129 / md5 
+        Saved:     C:/Prov/prov_combine-shaler-fisher/data/3-hf001-08-hourly-m.csv 
+
+
+OUTPUTS:
+
+1 : C:/TraceR/hf-shaler-gap-filled.csv 
+        Timestamp: 2020-07-08T10.21.34EDT 
+        Hash:      a5022c912b1ec50e8cd4c20d8ed636cf / md5 
+        Saved:     C:/Prov/prov_gap-fill-shaler/data/4-hf-shaler-gap-filled.csv 
+
+2 : C:/TraceR/hf-shaler-fisher-overlap.csv 
+        Timestamp: 2020-07-08T10.21.40EDT 
+        Hash:      f7334fb30cf16c566f8e1de2b7643cf2 / md5 
+        Saved:     C:/Prov/prov_combine-shaler-fisher/data/6-hf-shaler-fisher-overlap.csv 
+
+2 : C:/TraceR/hf300-05-daily-m.csv 
+        Timestamp: 2020-07-08T10.21.39EDT 
+        Hash:      1c9eabddcd5474e11e36168234a1cfae / md5 
+        Saved:     C:/Prov/prov_combine-shaler-fisher/data/4-hf300-05-daily-m.csv 
+
+2 : C:/TraceR/hf300-06-daily-e.csv 
+        Timestamp: 2020-07-08T10.21.40EDT 
+        Hash:      e463c55ff22f56c2fe5e7a69758d3339 / md5 
+        Saved:     C:/Prov/prov_combine-shaler-fisher/data/5-hf300-06-daily-e.csv 
+
+3 : C:/TraceR/hf300-01-annual-m.csv 
+        Timestamp: 2020-07-08T10.21.42EDT 
+        Hash:      e4969c413d3abce641335ad418b51f5c / md5 
+        Saved:     C:/Prov/prov_calculate-hf-annual-monthly/data/2-hf300-01-annual-m.csv 
+
+3 : C:/TraceR/hf300-02-annual-e.csv 
+        Timestamp: 2020-07-08T10.21.42EDT 
+        Hash:      cc99e71c31fd4696d99e68e724497dc5 / md5 
+        Saved:     C:/Prov/prov_calculate-hf-annual-monthly/data/3-hf300-02-annual-e.csv 
+
+3 : C:/TraceR/hf300-03-monthly-m.csv 
+        Timestamp: 2020-07-08T10.21.42EDT 
+        Hash:      de8267dba4643b5d174d4a3140bd9414 / md5 
+        Saved:     C:/Prov/prov_calculate-hf-annual-monthly/data/4-hf300-03-monthly-m.csv 
+
+3 : C:/TraceR/hf300-04-monthly-e.csv 
+        Timestamp: 2020-07-08T10.21.42EDT 
+        Hash:      bf6841b2b01b81c87b30f843b6dda0b1 / md5 
+        Saved:     C:/Prov/prov_calculate-hf-annual-monthly/data/5-hf300-04-monthly-e.csv 
+
+
+EXCHANGES:
+
+1 &gt; 2 : C:/TraceR/hf-shaler-gap-filled.csv 
+        Timestamp: 2020-07-08T10.21.34EDT 
+        Hash:      a5022c912b1ec50e8cd4c20d8ed636cf / md5 
+        Saved out: C:/Prov/prov_gap-fill-shaler/data/6-hf-shaler-fisher-overlap.csv 
+        Saved in:  C:/Prov/prov_combine-shaler-fisher/data/1-hf-shaler-gap-filled.csv 
+
+2 &gt; 3 : C:/TraceR/hf300-05-daily-m.csv 
+        Timestamp: 2020-07-08T10.21.39EDT 
+        Hash:      1c9eabddcd5474e11e36168234a1cfae / md5 
+        Saved out: C:/Prov/prov_combine-shaler-fisher/data/4-hf300-03-monthly-m.csv 
+        Saved in:  C:/Prov/prov_calculate-hf-annual-monthly/data/1-hf300-05-daily-m.csv </code></pre>
+<p>In both cases, the colon after the script number for each file indicates that the file has not changed since the provenance was collected.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
